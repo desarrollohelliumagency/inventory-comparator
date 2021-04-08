@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/comparator', App\Http\Controllers\ComparatorController::class);
+Route::get('/upload', App\Http\Controllers\UploadController::class);
 Route::post('/import/old', [App\Http\Controllers\ImportController::class, 'old'])->name('import.old');
 Route::post('/import/new', [App\Http\Controllers\ImportController::class, 'new'])->name('import.new');
 
