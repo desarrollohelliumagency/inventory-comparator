@@ -15,7 +15,7 @@ class CreateNewInStockProductsTable extends Migration
     {
         Schema::create('new_in_stock_products', function (Blueprint $table) {
             $table->id();
-            $table->string('barcode')->unique();
+            $table->string('key')->unique();
             $table->integer('quantity_on_hand');
             $table->timestamps();
         });

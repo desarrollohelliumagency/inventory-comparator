@@ -5,13 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class NewProduct extends Model
+class Option extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'key',
-        'quantity_on_hand'
+        'name',
+        'value',
     ];
-    protected $table = 'new_products';
-
 }

@@ -9,7 +9,7 @@ class UpdateInStockProduct extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'Barcode',
+        'key',
         'Quantity On Hand before',
         'Quantity On Hands'
     ];

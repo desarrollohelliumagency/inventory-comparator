@@ -9,7 +9,7 @@ class NewInStockProduct extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'Barcode',
+        'key',
         'Quantity On Hands'
     ];
     protected $table = 'new_in_stock_products';

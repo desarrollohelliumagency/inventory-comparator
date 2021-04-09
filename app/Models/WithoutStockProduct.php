@@ -9,7 +9,7 @@ class WithoutStockProduct extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'Barcode',
+        'key',
         'Quantity On Hands'
     ];
     protected $table = 'update_in_stock_products';

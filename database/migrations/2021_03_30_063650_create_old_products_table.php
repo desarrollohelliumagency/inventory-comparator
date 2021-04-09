@@ -15,7 +15,7 @@ class CreateOldProductsTable extends Migration
     {
         Schema::create('old_products', function (Blueprint $table) {
             $table->id();
-            $table->string('barcode')->unique();
+            $table->string('key')->unique();
             $table->integer('quantity_on_hand');
             $table->timestamps();
         });

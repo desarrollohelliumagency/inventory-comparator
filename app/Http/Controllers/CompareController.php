@@ -15,15 +15,9 @@ class CompareController extends Controller
         $updateProduct = [];
         $newStock = [];
 
-        $testOld = OldProduct::where('barcode', '5604447082503')->get();
-        //dd(empty($testOld));
-        $testNew = NewProduct::where('barcode', '5604447082503')->get();
-        //dd($testOld, $testNew);
         $newProducts = NewProduct::all();
         foreach ($newProducts as $new){
-            echo 'new: ' . $new->barcode . '<br>';
-            $product = OldProduct::where('barcode', $new->barcode)->first();
-            //echo $product;
+            $product = OldProduct::where('key', $new->key)->first();
 
             if($product){
                $updateProduct[] = $new;
@@ -33,9 +27,7 @@ class CompareController extends Controller
         }
 
         foreach ($oldProducts as $old){
-            echo 'old: ' . $old->barcode . '<br>';
-            $product = NewProduct::where('barcode', $old->barcode)->first();
-            //echo $product;
+            $product = NewProduct::where('key', $old->key)->first();
 
             if($product){
                 //$updateProduct[] = $new;
@@ -43,7 +35,7 @@ class CompareController extends Controller
                 $whithoutStock[] = $old;
             }
         }
-        dd($whithoutStock);
+        dd($whithoutStock, $newStock, $updateProduct);
 
 
     }

@@ -3,9 +3,11 @@
 namespace App\Imports;
 
 use App\Models\NewProduct;
+use App\Models\Option;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+
 
 
 class NewProductsImport implements ToCollection, WithHeadingRow
@@ -15,11 +17,12 @@ class NewProductsImport implements ToCollection, WithHeadingRow
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function collection(Collection $rows)
+    public function collection( Collection $rows)
     {
+        $options = Option::where(['name' => 'primary_key_new'])->first();
         foreach ($rows as $row){
             NewProduct::create([
-                'barcode' => $row['barcode'],
+                'key' => $row[$options->value],
                 'quantity_on_hand' => $row['quantity_on_hand']
             ]);
         }

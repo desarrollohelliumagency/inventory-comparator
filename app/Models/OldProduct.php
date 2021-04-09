@@ -9,7 +9,7 @@ class OldProduct extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'barcode',
+        'key',
         'quantity_on_hand'
     ];
     protected $table = 'old_products';
