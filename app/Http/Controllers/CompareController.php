@@ -43,30 +43,30 @@ class CompareController extends Controller
         }
 
         // iterate over old products items, if product no exists in the new table the product is whitout stock
-        foreach ($oldProducts as $old){
+       /* foreach ($oldProducts as $old){
             $product = NewProduct::where('key', $old->key)->first();
 
             if(!isset($product->key)){
                 $whithoutStock[] = $old;
                 
             }
-        }
+        }*/
         // insert whitout product
-        foreach($whithoutStock as $item){
+       /* foreach($whithoutStock as $item){
             $whithoutStockItem = WithoutStockProduct::updateOrCreate(
                 ['key' => $item->key],
                 ['quantity_on_hand' => $item->quantity_on_hand ?? '']
             );
-        }
+        }*/
          // insert new product
-        foreach($newStock as $item){
+     /*   foreach($newStock as $item){
             $newProductItem = NewInStockProduct::updateOrCreate(
                 ['key' => $item->key],
                 ['quantity_on_hand' => $item->quantity_on_hand ?? ''],
             );
-        }
+        }*/
          // insert uodate product
-        foreach($updateProduct as $item){
+     /*   foreach($updateProduct as $item){
             $updateProductItem = UpdateInStockProduct::updateOrCreate(
                 ['key' => $item->key],
                 [
@@ -74,9 +74,7 @@ class CompareController extends Controller
                     'quantity_on_hand' => $item->quantity_on_hand ?? '',
                 ],
             );
-        }
-
-
+        }*/
 
         echo 'return whitout stock, new stock and updates';
         dd($whithoutStock, $newStock, $updateProduct);
