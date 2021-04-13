@@ -34,20 +34,9 @@ class CompareController extends Controller
 
                $updateProduct[] = $new;
 
-               $updateProductItem = UpdateInStockProduct::updateOrCreate(
-                   ['key' => $new->key],
-                   [
-                       'quantity_on_hand_before' => $product->quantity_on_hand ?? '',
-                       'quantity_on_hand' => $new->quantity_on_hand ?? '',
-                   ],
-               );
-
             }else{
                 $newStock[] = $new;
-                $newProductItem = NewInStockProduct::updateOrCreate(
-                    ['key' => $new->key],
-                    ['quantity_on_hand' => $new->quantity_on_hand ?? ''],
-                );
+               
 
             }
 
@@ -59,12 +48,36 @@ class CompareController extends Controller
 
             if(!isset($product->key)){
                 $whithoutStock[] = $old;
-                $whithoutStockItem = WithoutStockProduct::updateOrCreate(
-                    ['key' => $old->key],
-                    ['quantity_on_hand' => $old->quantity_on_hand ?? '']
-                );
+                
             }
         }
+        // insert whitout product
+        foreach($whithoutStock as $item){
+            $whithoutStockItem = WithoutStockProduct::updateOrCreate(
+                ['key' => $item->key],
+                ['quantity_on_hand' => $item->quantity_on_hand ?? '']
+            );
+        }
+         // insert new product
+        foreach($newStock as $item){
+            $newProductItem = NewInStockProduct::updateOrCreate(
+                ['key' => $item->key],
+                ['quantity_on_hand' => $item->quantity_on_hand ?? ''],
+            );
+        }
+         // insert uodate product
+        foreach($updateProduct as $item){
+            $updateProductItem = UpdateInStockProduct::updateOrCreate(
+                ['key' => $item->key],
+                [
+                    'quantity_on_hand_before' => $item->quantity_on_hand ?? '',
+                    'quantity_on_hand' => $item->quantity_on_hand ?? '',
+                ],
+            );
+        }
+
+
+
         echo 'return whitout stock, new stock and updates';
         dd($whithoutStock, $newStock, $updateProduct);
 
