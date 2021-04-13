@@ -10,9 +10,10 @@ class UpdateInStockProduct extends Model
     use HasFactory;
     protected $fillable = [
         'key',
-        'Quantity On Hand before',
-        'Quantity On Hands'
+        'quantity_on_hand_before',
+        'quantity_on_hand'
     ];
     protected $table = 'update_in_stock_products';
-    protected $primaryKey = 'Barcode';
+    protected $primaryKey = 'key';
+
 }

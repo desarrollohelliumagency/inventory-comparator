@@ -29,7 +29,7 @@
                     <p class="my-2 text-gray-500">Input the Barcode, SKU name column in excel, csv file.</p>
                     <div class="my-2">
                         <label for="primary_key_old">Column Key</label>
-                        <input type="text" name="primary_key_old" id="primary_key_old" value="Barcode" class="p-2 border-black"><br>
+                        <input type="text" name="primary_key_old" id="primary_key_old" value="barcode" class="p-2 border-black"><br>
                     </div>
                     <p class="my-2 text-gray-500">Select your file from old inventory, then press submit button.</p>
                     <input type="file" name="products_old_file" id="products_old_file" required>
@@ -44,7 +44,7 @@
                     <p class="my-2 text-gray-500">Input the Barcode, SKU, or any name column in excel, csv file.</p>
                     <div class="my-2">
                         <label for="primary_key_old">Column Key</label>
-                        <input type="text" name="primary_key_new" id="primary_key_new" value="Barcode" class="p-2 border-black"><br>
+                        <input type="text" name="primary_key_new" id="primary_key_new" value="barcode" class="p-2 border-black"><br>
                     </div>
                     <p class="my-2 text-gray-500">Select your file from new inventory, then press submit button.</p>
                     <input type="file" name="products_new_file" id="products_new_file" required class="block">

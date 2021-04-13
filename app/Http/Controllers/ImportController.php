@@ -8,8 +8,16 @@ use App\Models\Option;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
+/**
+ * Class ImportController
+ * @package App\Http\Controllers
+ */
 class ImportController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return string
+     */
     public function old(Request $request)
     {
         $option = Option::firstOrCreate(
@@ -18,10 +26,19 @@ class ImportController extends Controller
         );
         //dd($option);
 
-        Excel::import(new OldProductsImport, $request->file('products_old_file'));
-        return back()->with('success', 'Old Inventory saved in database');
+        if(Excel::import(new OldProductsImport, $request->file('products_old_file'))){
+            return back()->with('success', 'Old Inventory saved in database');
+        }else{
+            return 'algo paso';
+        }
+
+
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function new(Request $request)
     {
         $option = Option::firstOrCreate(

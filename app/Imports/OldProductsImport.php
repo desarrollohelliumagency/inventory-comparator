@@ -28,9 +28,9 @@ class OldProductsImport implements ToCollection, WithHeadingRow
         foreach ($rows as $row){
 
             if(!isset($row[$column_key])){
-                dd($row[$option->value]);
+                return null;
             }
-            //dd();
+
             OldProduct::create([
                 'key' => $row[$column_key],
                 'quantity_on_hand' => $row[$column_values]
@@ -38,8 +38,5 @@ class OldProductsImport implements ToCollection, WithHeadingRow
         }
     }
 
-    public function headingRow(): int
-    {
-        return 1;
-    }
+
 }

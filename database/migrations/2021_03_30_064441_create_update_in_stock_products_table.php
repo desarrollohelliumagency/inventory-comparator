@@ -16,8 +16,8 @@ class CreateUpdateInStockProductsTable extends Migration
         Schema::create('update_in_stock_products', function (Blueprint $table) {
             $table->id();
             $table->string('key')->unique();
-            $table->integer('quantity_on_hand_before');
-            $table->integer('quantity_on_hand');
+            $table->integer('quantity_on_hand_before')->nullable();
+            $table->integer('quantity_on_hand')->nullable();
             $table->timestamps();
         });
     }

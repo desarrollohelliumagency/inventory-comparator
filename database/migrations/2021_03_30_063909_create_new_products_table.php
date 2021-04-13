@@ -16,7 +16,7 @@ class CreateNewProductsTable extends Migration
         Schema::create('new_products', function (Blueprint $table) {
             $table->id();
             $table->string('key')->unique();
-            $table->integer('quantity_on_hand');
+            $table->integer('quantity_on_hand')->nullable();
             $table->timestamps();
         });
     }

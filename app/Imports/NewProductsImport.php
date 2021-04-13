@@ -26,6 +26,11 @@ class NewProductsImport implements ToCollection, WithHeadingRow
         $column_key = strtolower(str_replace(' ', '_', $option->value));
 
         foreach ($rows as $row){
+
+            if(!isset($row[$column_key])){
+                return null;
+            }
+
             NewProduct::create([
                 'key' => $row[$column_key],
                 'quantity_on_hand' => $row[$column_values]

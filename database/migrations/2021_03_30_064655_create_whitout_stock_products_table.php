@@ -15,8 +15,8 @@ class CreateWhitoutStockProductsTable extends Migration
     {
         Schema::create('whitout_stock_products', function (Blueprint $table) {
             $table->id();
-            $table->string('barcode')->unique();
-            $table->integer('quantity_on_hand');
+            $table->string('key')->unique();
+            $table->integer('quantity_on_hand')->nullable();
             $table->timestamps();
         });
     }

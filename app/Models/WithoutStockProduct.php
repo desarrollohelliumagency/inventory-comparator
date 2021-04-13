@@ -10,8 +10,8 @@ class WithoutStockProduct extends Model
     use HasFactory;
     protected $fillable = [
         'key',
-        'Quantity On Hands'
+        'quantity_on_hand'
     ];
-    protected $table = 'update_in_stock_products';
-    protected $primaryKey = 'Barcode';
+    protected $table = 'whitout_stock_products';
+    protected $primaryKey = 'key';
 }
