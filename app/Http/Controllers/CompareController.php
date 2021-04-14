@@ -17,67 +17,75 @@ class CompareController extends Controller
 {
     public function index()
     {
-        $oldProducts = OldProduct::all();
-
-        $newProducts = NewProduct::all();
+        $oldProducts = OldProduct::all('key')->toArray();
+        //dd($oldProducts);
+        $newProducts = NewProduct::all('key')->toArray();
 
         $whithoutStock = [];
         $updateProduct = [];
         $newStock = [];
 
-        //iterate over new products if product no exist in old products table the product is new in stock
-        foreach ($newProducts as $new){
+//        dd($oldProducts);
 
-            $product = OldProduct::where('key', $new->key)->first();
+        ///probe if iterate over arrays.
+        foreach($oldProducts as $oldprouct){
+            $newItem = array_search($oldprouct, $newProducts);
+            //var_export($newItem);
+            //echo '<br>----<br>';
+            if($newItem !== false){
+                //echo $oldprouct['key'] . ' Is update product <br>';
+                $oldItem = array_search($oldprouct, $oldProducts);
+                //$newItem = array_search($oldprouct, $newProducts);
+                $updateProduct[] = $oldprouct;
 
-            if(isset($product->key)){
-
-               $updateProduct[] = $new;
-
+                //var_export($oldItem);
+                //echo '<br>';
+                //var_export($newItem);
+                //echo '<br>';
+                unset($oldProducts[$oldItem]);
+                unset($newProducts[$newItem]);
             }else{
-                $newStock[] = $new;
-               
-
-            }
-
-        }
-
-        // iterate over old products items, if product no exists in the new table the product is whitout stock
-        foreach ($oldProducts as $old){
-            $product = NewProduct::where('key', $old->key)->first();
-
-            if(!isset($product->key)){
-                $whithoutStock[] = $old;
-                
+                //echo $oldprouct['key'] . ' Is Whitout stock product <br>';
+                $whithoutStock[] = $oldprouct;
+                $newItem = array_search($oldprouct['key'], $newProducts);
+                unset($newProducts[$newItem]);
             }
         }
-        // insert whitout product
-        foreach($whithoutStock as $item){
-            $whithoutStockItem = WithoutStockProduct::updateOrCreate(
-                ['key' => $item->key],
-                ['quantity_on_hand' => $item->quantity_on_hand ?? '']
-            );
-        }
-         // insert new product
-        foreach($newStock as $item){
-            $newProductItem = NewInStockProduct::updateOrCreate(
-                ['key' => $item->key],
-                ['quantity_on_hand' => $item->quantity_on_hand ?? ''],
-            );
-        }
-         // insert uodate product
-        foreach($updateProduct as $item){
-            $updateProductItem = UpdateInStockProduct::updateOrCreate(
-                ['key' => $item->key],
-                [
-                    'quantity_on_hand_before' => $item->quantity_on_hand ?? '',
-                    'quantity_on_hand' => $item->quantity_on_hand ?? '',
-                ],
-            );
+
+        foreach($newProducts as $newProuct){
+            
+            $oldItem = array_search($newProuct, $oldProducts);
+            
+            if($oldItem == false){
+                //echo $newProuct['key'] . ' Is new product <br>';
+                $newStock[] = $newProuct;
+            }
         }
 
-        echo 'return whitout stock, new stock and updates';
-        dd($whithoutStock, $newStock, $updateProduct);
+        //dd($whithoutStock);
+
+        return view('compare.results', compact('newStock', 'updateProduct', 'whithoutStock'));
+/*
+test for future csv download
+        ob_start();
+
+        // Set the content type 
+        header('Content-type: application/csv');
+        // Set the file name option to a filename of your choice.
+        header('Content-Disposition: attachment; filename=myCSV.csv');
+        // Set the encoding
+        header("Content-Transfer-Encoding: UTF-8");
+        
+        $out = fopen('php://output', 'w');
+        fputcsv($out, $updateProduct);
+        fclose($out);
+
+        ob_end_flush();
+
+*/
+        
+
+     
 
 
     }
