@@ -30,7 +30,7 @@ APP_KEY base64:JfEuydxXTRQUkV6FfrV3LCP72bfXInurDgaVm+BRZzI=
 
 APP_NAME Salim Stock Compare
 
-DATABASE_URL postgres://nfjxfowaixjzib:b11b0abec86e769b43aec2913b2f420e278a07df1437735ecb1e455071904d48@ec2-18-206-20-102.compute-1.amazonaws.com:5432/dbs86v70vvce9n
+DATABASE_URL url provided by Heroku
 
 ## Change settings in .env file
 
