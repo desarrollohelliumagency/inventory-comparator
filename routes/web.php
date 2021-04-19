@@ -24,5 +24,6 @@ Route::post('/import/old', [App\Http\Controllers\ImportController::class, 'old']
 Route::post('/import/new', [App\Http\Controllers\ImportController::class, 'new'])->name('import.new');
 
 Route::get('/compare', [App\Http\Controllers\CompareController::class, 'index'])->name('compare');
+Route::get('/compare/download', [App\Http\Controllers\CompareController::class, 'download'])->name('compare.download');
 
 Route::delete('/clean', App\Http\Controllers\CleanController::class)->name('clean');

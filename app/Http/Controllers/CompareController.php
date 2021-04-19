@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\NewInStockProduct;
+use App\Exports\InventoryExport;
 use App\Models\NewProduct;
 use App\Models\OldProduct;
-use App\Models\UpdateInStockProduct;
-use App\Models\WithoutStockProduct;
-use Illuminate\Http\Request;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 /**
  * Class CompareController
@@ -15,25 +15,48 @@ use Illuminate\Http\Request;
  */
 class CompareController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * show results
+     */
     public function index()
+    {
+        $items = $this->getResults();
+
+        return view('compare.results', compact(
+           'items'
+        ));
+
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     * Download array to excel
+     */
+    public function download(){
+        $items = $this->getResults();
+        return Excel::download(new InventoryExport($items), 'inventory.xlsx');
+    }
+
+
+    /**
+     * @return array
+     * Get the results from inventory
+     */
+    private function getResults() : array
     {
         $oldProducts = OldProduct::all()->toArray();
 
         $newProducts = NewProduct::all()->toArray();
 
-        $whithoutStock = [];
-        $updateProduct = [];
-        $updateProductEquals = [];
-        $updateProductPlus = [];
-        $updateProductMinus = [];
-        $newStock = [];
+        $items = [];
 
-        //iterate over new products list
-        //if product key is find then the product is update list
-        //asign if sum, minus or equal quantity on hand
         foreach ($newProducts as $newProduct){
+
             $encontrado = false;
+
             foreach ($oldProducts as $oldProduct){
+                $product = [];
 
                 if($newProduct['key'] == $oldProduct['key']){
 
@@ -41,18 +64,36 @@ class CompareController extends Controller
                     $newProduct['old_quantity_on_hand'] = $oldProduct['quantity_on_hand'];
 
                     if($newProduct['quantity_on_hand'] == $oldProduct['quantity_on_hand']){
-                        $updateProductEquals[] = $newProduct;
+                        $product['key'] = $newProduct['key'];
+                        $product['quantity'] = $newProduct['quantity_on_hand'];
+                        $product['status'] = 'without changes';
+                        $items[] = $product;
+
                     }elseif ($newProduct['quantity_on_hand'] > $oldProduct['quantity_on_hand']){
-                        $updateProductPlus[] = $newProduct;
+
+                        $product['key'] = $newProduct['key'];
+                        $product['quantity'] = $newProduct['quantity_on_hand'];
+                        $product['status'] = 'update increments';
+                        $items[] = $product;
+
                     }else{
-                        $updateProductMinus[] = $newProduct;
+
+                        $product['key'] = $newProduct['key'];
+                        $product['quantity'] = $newProduct['quantity_on_hand'];
+                        $product['status'] = 'update decrements';
+                        $items[] = $product;
+
+
                     }
 
                 }
             }
 
             if(!$encontrado){
-                $newStock[] = $newProduct;
+                $product['key'] = $newProduct['key'];
+                $product['quantity'] = $newProduct['quantity_on_hand'];
+                $product['status'] = 'new stock';
+                $items[] = $product;
             }
         }
 
@@ -70,22 +111,14 @@ class CompareController extends Controller
             }
 
             if(!$encontrado){
-               $whithoutStock[] = $oldProduct;
+                $product['key'] = $newProduct['key'];
+                $product['quantity'] = $newProduct['quantity_on_hand'];
+                $product['status'] = 'without stock';
+                $items[] = $product;
+
             }
         }
 
-
-        return view('compare.results', compact(
-            'newStock',
-            'updateProductPlus',
-            'updateProductMinus',
-            'updateProductEquals',
-            'whithoutStock'
-        ));
-
-
-
-
-
+        return $items;
     }
 }
