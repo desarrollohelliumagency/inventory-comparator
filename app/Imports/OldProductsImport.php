@@ -30,11 +30,15 @@ class OldProductsImport implements ToCollection, WithHeadingRow
             if(!isset($row[$column_key])){
                 return null;
             }
+            try{
+                OldProduct::create([
+                    'key' => $row[$column_key],
+                    'quantity_on_hand' => $row[$column_values]
+                ]);
+            }catch (SqlException $e){
+                echo $e->getMessage();
+            }
 
-            OldProduct::create([
-                'key' => $row[$column_key],
-                'quantity_on_hand' => $row[$column_values]
-            ]);
         }
     }
 

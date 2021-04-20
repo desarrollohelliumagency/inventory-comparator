@@ -3,9 +3,15 @@
 namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromArray;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use PhpOffice\PhpSpreadsheet\Cell\StringValueBinder;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class InventoryExport implements FromArray, WithHeadings
+
+class InventoryExport extends StringValueBinder implements FromArray, WithHeadings, WithColumnFormatting, ShouldAutoSize, WithCustomValueBinder
 {
     //array of items
     protected $items;
@@ -36,4 +42,20 @@ class InventoryExport implements FromArray, WithHeadings
             'status'
         ];
     }
+
+    /**
+     * @return array
+     * set options display columns
+     */
+    public function columnFormats(): array
+    {
+        return [
+            'A' => NumberFormat::FORMAT_TEXT,
+            'B' => NumberFormat::FORMAT_GENERAL,
+            'C' => NumberFormat::FORMAT_TEXT,
+        ];
+    }
+
+
+
 }

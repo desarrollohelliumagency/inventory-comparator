@@ -111,8 +111,8 @@ class CompareController extends Controller
             }
 
             if(!$encontrado){
-                $product['key'] = $newProduct['key'];
-                $product['quantity'] = $newProduct['quantity_on_hand'];
+                $product['key'] = $oldProduct['key'];
+                $product['quantity'] = $oldProduct['quantity_on_hand'];
                 $product['status'] = 'without stock';
                 $items[] = $product;
 

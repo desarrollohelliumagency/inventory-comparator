@@ -56,6 +56,7 @@
         <div class="grids grid-cols-1">
             <div class="p-4 text-center my-4">
                 <a href="{{ route('compare') }}" class="m-3 p-3 bg-green-400 hover:bg-green-800 text-white">Show Results</a>
+                <a href="{{ url('/compare/download') }}" class="m-3 p-3 bg-green-400 hover:bg-green-800 text-white">Download Report</a>
             </div>
         </div>
     </div>
