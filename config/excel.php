@@ -2,6 +2,7 @@
 
 use Maatwebsite\Excel\Excel;
 
+
 return [
     'exports' => [
 
@@ -21,7 +22,7 @@ return [
         | Pre-calculate formulas during export
         |--------------------------------------------------------------------------
         */
-        'pre_calculate_formulas' => false,
+        'pre_calculate_formulas' => true,
 
         /*
         |--------------------------------------------------------------------------
@@ -120,9 +121,17 @@ return [
         | Configure e.g. delimiter, enclosure and line ending for CSV imports.
         |
         */
-        'csv'         => [
+        /*'csv'         => [
             'delimiter'        => ',',
             'enclosure'        => '"',
+            'escape_character' => '\\',
+            'contiguous'       => false,
+            'input_encoding'   => 'UTF-8',
+        ],*/
+
+        'csv'         => [
+            'delimiter'        => env('CSV_DELIMITER',';'),
+            'enclosure'        => env('CSV_ENCLOUSURE','"'),
             'escape_character' => '\\',
             'contiguous'       => false,
             'input_encoding'   => 'UTF-8',
@@ -206,7 +215,7 @@ return [
     |
     */
     'value_binder' => [
-        'default' => Maatwebsite\Excel\DefaultValueBinder::class,
+        'default' => PhpOffice\PhpSpreadsheet\Cell\StringValueBinder::class,
     ],
 
     'cache' => [

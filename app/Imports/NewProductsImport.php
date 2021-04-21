@@ -5,13 +5,20 @@ namespace App\Imports;
 use App\Models\NewProduct;
 use App\Models\Option;
 use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\SkipsErrors;
+use Maatwebsite\Excel\Concerns\SkipsFailures;
+use Maatwebsite\Excel\Concerns\SkipsOnError;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 
 
-class NewProductsImport implements ToCollection, WithHeadingRow
+class NewProductsImport implements ToCollection, WithHeadingRow, SkipsOnError, SkipsOnFailure
 {
+    use Importable, SkipsErrors, SkipsFailures;
+
     /**
     * @param Collection $rows
     *
@@ -31,10 +38,10 @@ class NewProductsImport implements ToCollection, WithHeadingRow
                 return null;
             }
 
-            NewProduct::create([
-                'key' => $row[$column_key],
-                'quantity_on_hand' => $row[$column_values]
-            ]);
+            NewProduct::updateOrCreate(
+                ['key' => $row[$column_key]],
+                ['quantity_on_hand' => $row[$column_values]]
+            );
         }
     }
 }

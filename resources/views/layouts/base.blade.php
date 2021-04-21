@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <title>Document</title>
+    <title>Inventory Comparator</title>
 </head>
 <body class="min-h-screen bg-gray-100">
 
@@ -41,7 +41,7 @@
             <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div class="flex-shrink-0 flex items-center">
                     <img class="block lg:hidden h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow">
-                    <p class="text-2xl text-white text-bold">Inventory Comparer</p>
+                    <p class="text-2xl text-white text-bold"><a href="{{url('/')}}">Inventory Comparer</a></p>
                 </div>
                 <div class="hidden sm:block sm:ml-6">
                     <div class="flex space-x-4">

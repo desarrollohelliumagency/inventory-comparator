@@ -5,12 +5,21 @@
             <div class="md:inset-x-auto">
                 <h1 class="text-4xl text-center my-4">UPLOAD FORMS FOR IMPORT</h1>
             </div>
-            @if ($message = Session::get('success'))
-                <div class="bg-green-400 text-white mx-auto text-center">
-                    <p>{{$message}}</p>
-                </div>
-            @endif
         </div>
+        @if ($message = Session::get('success'))
+        <div class="grid grid-cols-1 gap-y-3">
+            <div class="bg-green-400 text-white mx-auto text-center">
+                <p>{{$message}}</p>
+            </div>
+        </div>
+        @endif
+        @if ($message = Session::get('fail'))
+        <div class="grid grid-cols-1 gap-y-3">
+            <div class="bg-red-400 text-white mx-auto text-center">
+                <p>{{$message}}</p>
+            </div>
+        </div>
+        @endif
         <div class="grid grid-cols-3 gap-3">
             <div class="p-4 border-2 border-gray-500">
                 <h2 class="text-2xl font-bold">1. Clear Databases Table</h2>

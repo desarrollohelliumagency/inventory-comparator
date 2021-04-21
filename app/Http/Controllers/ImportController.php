@@ -24,15 +24,18 @@ class ImportController extends Controller
             ['name' => 'primary_key_old'],
             ['value' => $request->input('primary_key_old')]
         );
-        //dd($option);
 
-        if(Excel::import(new OldProductsImport, $request->file('products_old_file'))){
-            return back()->with('success', 'Old Inventory saved in database');
-        }else{
-            return 'algo paso';
+        try{
+            $import = new OldProductsImport();
+            $import->import($request->file('products_old_file'));
+
+            return redirect()->back()->with('success', 'Old inventory was imported');
+
+        }catch (\Exception $e) {
+            return redirect()->back()->with('fail', 'Error. Can`t load information in the database. '. $e->getMessage());
+        }catch (\Error $e){
+            return redirect()->back()->with('fail', 'Error. Can`t load information in the database. '. $e->getMessage());
         }
-
-
     }
 
     /**
@@ -46,7 +49,17 @@ class ImportController extends Controller
             ['value' => $request->input('primary_key_new')]
         );
 
-        Excel::import(new NewProductsImport, $request->file('products_new_file'));
-        return back()->with('success', 'New Inventory saved in database');
+        try{
+            $import = new NewProductsImport();
+            $import->import($request->file('products_new_file'));
+
+            return redirect()->back()->with('success', 'New inventory was imported');
+
+        }catch (\Exception $e) {
+            return redirect()->back()->with('fail', 'Error. Can`t load information in the database. '. $e->getMessage());
+        }catch (\Error $e){
+            return redirect()->back()->with('fail', 'Error. Can`t load information in the database. '. $e->getMessage());
+        }
+
     }
 }
