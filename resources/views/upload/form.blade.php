@@ -6,19 +6,29 @@
                 <h1 class="text-4xl text-center my-4">UPLOAD FORMS FOR IMPORT</h1>
             </div>
         </div>
-        @if ($message = Session::get('success'))
-        <div class="grid grid-cols-1 gap-y-3">
-            <div class="bg-green-400 text-white mx-auto text-center">
-                <p>{{$message}}</p>
+        @if (session()->has('success'))
+            <div class="grid grid-columns-1">
+                <div id="alert" class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-green-500">
+                <span class="inline-block align-middle mr-8">
+                    {{ session('success') }}
+                </span>
+                    <button class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none" onclick="document.getElementById('alert').remove();">
+                        <span>×</span>
+                    </button>
+                </div>
             </div>
-        </div>
         @endif
-        @if ($message = Session::get('fail'))
-        <div class="grid grid-cols-1 gap-y-3">
-            <div class="bg-red-400 text-white mx-auto text-center">
-                <p>{{$message}}</p>
+        @if (session()->has('errors'))
+            <div class="grid grid-columns-1">
+                <div id="alert" class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-500">
+                <span class="inline-block align-middle mr-8">
+                    {{ session('errors') }}
+                </span>
+                    <button class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none" onclick="document.getElementById('alert').remove();">
+                        <span>×</span>
+                    </button>
+                </div>
             </div>
-        </div>
         @endif
         <div class="grid grid-cols-3 gap-3">
             <div class="p-4 border-2 border-gray-500">

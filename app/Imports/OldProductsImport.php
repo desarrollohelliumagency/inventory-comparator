@@ -10,12 +10,13 @@ use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\SkipsErrors;
 use Throwable;
 
 
-class OldProductsImport implements ToCollection, WithHeadingRow, SkipsOnError, SkipsOnFailure
+class OldProductsImport implements ToCollection, WithHeadingRow, SkipsOnError, SkipsOnFailure, WithCustomCsvSettings
 {
     use Importable, SkipsErrors, SkipsFailures;
     /**
@@ -50,4 +51,17 @@ class OldProductsImport implements ToCollection, WithHeadingRow, SkipsOnError, S
     }
 
 
+    public function getCsvSettings(): array
+    {
+        $csv_delimiter = Option::where('name', 'csv_delimiter')->first();
+        $csv_enclosure = Option::where('name', 'csv_enclosure')->first();
+        $csv_input_encoding = Option::where('name', 'csv_input_encoding')->first();
+        return [
+            'delimiter'        => $csv_delimiter->value ?? ';',
+            'enclosure'        => $csv_enclosure->value ?? '"',
+            'escape_character' => '\\',
+            'contiguous'       => true,
+            'input_encoding'   => $csv_input_encoding->value ?? 'UTF-8',
+        ];
+    }
 }

@@ -50,6 +50,8 @@
 
                         <a href="{{url('/compare')}}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Show Results</a>
 
+                        <a href="{{url('/options')}}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Options</a>
+
 
                     </div>
                 </div>

@@ -25,6 +25,7 @@ class ImportController extends Controller
             ['value' => $request->input('primary_key_old')]
         );
 
+
         try{
             $import = new OldProductsImport();
             $import->import($request->file('products_old_file'));
@@ -32,10 +33,12 @@ class ImportController extends Controller
             return redirect()->back()->with('success', 'Old inventory was imported');
 
         }catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Error. Can`t load information in the database. '. $e->getMessage());
+            return redirect()->back()->with('errors', 'Error. Can`t load information in the database. '. $e->getMessage());
         }catch (\Error $e){
-            return redirect()->back()->with('fail', 'Error. Can`t load information in the database. '. $e->getMessage());
+            return redirect()->back()->with('errors', 'Error. Can`t load information in the database. '. $e->getMessage());
         }
+
+
     }
 
     /**
@@ -56,9 +59,9 @@ class ImportController extends Controller
             return redirect()->back()->with('success', 'New inventory was imported');
 
         }catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Error. Can`t load information in the database. '. $e->getMessage());
+            return redirect()->back()->with('errors', 'Error. Can`t load information in the database. '. $e->getMessage());
         }catch (\Error $e){
-            return redirect()->back()->with('fail', 'Error. Can`t load information in the database. '. $e->getMessage());
+            return redirect()->back()->with('errors', 'Error. Can`t load information in the database. '. $e->getMessage());
         }
 
     }

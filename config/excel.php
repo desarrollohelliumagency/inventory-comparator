@@ -22,7 +22,7 @@ return [
         | Pre-calculate formulas during export
         |--------------------------------------------------------------------------
         */
-        'pre_calculate_formulas' => true,
+        'pre_calculate_formulas' => false,
 
         /*
         |--------------------------------------------------------------------------
@@ -43,7 +43,7 @@ return [
         |
         */
         'csv'                    => [
-            'delimiter'              => ',',
+            'delimiter'              => ';',
             'enclosure'              => '"',
             'line_ending'            => PHP_EOL,
             'use_bom'                => false,
@@ -98,7 +98,7 @@ return [
         | ignored by enabling the setting ignore_empty to true.
         |
         */
-        'ignore_empty' => false,
+        'ignore_empty' => true,
 
         /*
         |--------------------------------------------------------------------------
@@ -130,10 +130,10 @@ return [
         ],*/
 
         'csv'         => [
-            'delimiter'        => env('CSV_DELIMITER',';'),
-            'enclosure'        => env('CSV_ENCLOUSURE','"'),
+            'delimiter'        => ',',
+            'enclosure'        => '"',
             'escape_character' => '\\',
-            'contiguous'       => false,
+            'contiguous'       => true,
             'input_encoding'   => 'UTF-8',
         ],
 
