@@ -69,6 +69,6 @@ class OldProductsImport implements ToCollection, WithHeadingRow, SkipsOnError, S
 
     public function chunkSize(): int
     {
-        return 1000;
+        return 250;
     }
 }
