@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\NewProduct;
 use App\Models\Option;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsErrors;
@@ -11,12 +12,13 @@ use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 
 
-class NewProductsImport implements ToCollection, WithHeadingRow, SkipsOnError, SkipsOnFailure, WithCustomCsvSettings
+class NewProductsImport implements ToCollection, WithHeadingRow, SkipsOnError, SkipsOnFailure, WithCustomCsvSettings, WithChunkReading, ShouldQueue
 {
     use Importable, SkipsErrors, SkipsFailures;
 
@@ -58,5 +60,10 @@ class NewProductsImport implements ToCollection, WithHeadingRow, SkipsOnError, S
             'contiguous'       => true,
             'input_encoding'   => $csv_input_encoding->value ?? 'UTF-8',
         ];
+    }
+
+    public function chunkSize(): int
+    {
+        return 1000;
     }
 }

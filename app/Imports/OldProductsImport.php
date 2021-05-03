@@ -4,19 +4,21 @@ namespace App\Imports;
 
 use App\Models\OldProduct;
 use App\Models\Option;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\SkipsErrors;
 use Throwable;
 
 
-class OldProductsImport implements ToCollection, WithHeadingRow, SkipsOnError, SkipsOnFailure, WithCustomCsvSettings
+class OldProductsImport implements ToCollection, WithHeadingRow, SkipsOnError, SkipsOnFailure, WithCustomCsvSettings, WithChunkReading, ShouldQueue
 {
     use Importable, SkipsErrors, SkipsFailures;
     /**
@@ -63,5 +65,10 @@ class OldProductsImport implements ToCollection, WithHeadingRow, SkipsOnError, S
             'contiguous'       => true,
             'input_encoding'   => $csv_input_encoding->value ?? 'UTF-8',
         ];
+    }
+
+    public function chunkSize(): int
+    {
+        return 1000;
     }
 }

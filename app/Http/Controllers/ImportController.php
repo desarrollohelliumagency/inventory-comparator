@@ -27,8 +27,9 @@ class ImportController extends Controller
 
 
         try{
-            $import = new OldProductsImport();
-            $import->import($request->file('products_old_file'));
+            Excel::queueImport(new OldProductsImport(), $request->file('products_old_file'));
+            //$import = new OldProductsImport();
+            //$import->queueImport($request->file('products_old_file'));
 
             return redirect()->back()->with('success', 'Old inventory was imported');
 
@@ -53,9 +54,9 @@ class ImportController extends Controller
         );
 
         try{
-            $import = new NewProductsImport();
-            $import->import($request->file('products_new_file'));
-
+            Excel::queueImport(new NewProductsImport(), $request->file('products_new_file'));
+            //$import = new NewProductsImport();
+            //$import->import($request->file('products_new_file'));
             return redirect()->back()->with('success', 'New inventory was imported');
 
         }catch (\Exception $e) {
