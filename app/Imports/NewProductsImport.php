@@ -64,6 +64,6 @@ class NewProductsImport implements ToCollection, WithHeadingRow, SkipsOnError, S
 
     public function chunkSize(): int
     {
-        return 4500;
+        return 4300;
     }
 }
