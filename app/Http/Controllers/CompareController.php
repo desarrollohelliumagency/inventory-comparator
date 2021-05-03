@@ -65,6 +65,7 @@ class CompareController extends Controller
 
                     if($newProduct['quantity_on_hand'] == $oldProduct['quantity_on_hand']){
                         $product['key'] = $newProduct['key'];
+                        $product['quantity old'] = $oldProduct['quantity_on_hand'] ?? '0';
                         $product['quantity'] = $newProduct['quantity_on_hand'];
                         $product['status'] = 'without changes';
                         $items[] = $product;
@@ -72,6 +73,7 @@ class CompareController extends Controller
                     }elseif ($newProduct['quantity_on_hand'] > $oldProduct['quantity_on_hand']){
 
                         $product['key'] = $newProduct['key'];
+                        $product['quantity old'] = $oldProduct['quantity_on_hand'] ?? '0';
                         $product['quantity'] = $newProduct['quantity_on_hand'];
                         $product['status'] = 'update increments';
                         $items[] = $product;
@@ -79,6 +81,7 @@ class CompareController extends Controller
                     }else{
 
                         $product['key'] = $newProduct['key'];
+                        $product['quantity old'] = $oldProduct['quantity_on_hand'] ?? '0';
                         $product['quantity'] = $newProduct['quantity_on_hand'];
                         $product['status'] = 'update decrements';
                         $items[] = $product;
@@ -91,6 +94,7 @@ class CompareController extends Controller
 
             if(!$encontrado){
                 $product['key'] = $newProduct['key'];
+                $product['quantity old'] = $oldProduct['quantity_on_hand'] ?? '0';
                 $product['quantity'] = $newProduct['quantity_on_hand'];
                 $product['status'] = 'new stock';
                 $items[] = $product;
@@ -112,7 +116,8 @@ class CompareController extends Controller
 
             if(!$encontrado){
                 $product['key'] = $oldProduct['key'];
-                $product['quantity'] = $oldProduct['quantity_on_hand'];
+                $product['quantity old'] = $oldProduct['quantity_on_hand'] ?? '0';
+                $product['quantity'] = $newProduct['quantity_on_hand'];
                 $product['status'] = 'without stock';
                 $items[] = $product;
 
