@@ -38,6 +38,7 @@ class InventoryExport extends StringValueBinder implements FromArray, WithHeadin
     {
         return [
             'key',
+            'quantity old',
             'quantity',
             'status'
         ];
@@ -52,7 +53,8 @@ class InventoryExport extends StringValueBinder implements FromArray, WithHeadin
         return [
             'A' => NumberFormat::FORMAT_TEXT,
             'B' => NumberFormat::FORMAT_GENERAL,
-            'C' => NumberFormat::FORMAT_TEXT,
+            'C' => NumberFormat::FORMAT_GENERAL,
+            'D' => NumberFormat::FORMAT_TEXT,
         ];
     }
 
