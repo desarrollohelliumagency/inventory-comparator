@@ -43,6 +43,9 @@
                 </form>
             </div>
             <div class="p-4 border-2 border-gray-500">
+                <svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
+                    <!-- ... -->
+                </svg>
                 <h2 class="text-2xl font-bold">2. Import Old Inventory</h2>
                 <form action="{{route('import.old')}}" enctype="multipart/form-data" method="post">
                     @csrf
