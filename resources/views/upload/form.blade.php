@@ -37,7 +37,9 @@
                 <form action="{{route('clean')}}" method="post">
                     @csrf
                     @method('delete')
-                    <button type="submit" class="border-solid text-white bg-blue-600 hover:bg-red-400 p-2 my-2 block">Clear Databases</button>
+                    <button type="submit" class="border-solid text-white bg-blue-600 hover:bg-red-400 p-2 my-2 block">
+                        Clear Databases
+                    </button>
                 </form>
             </div>
             <div class="p-4 border-2 border-gray-500">

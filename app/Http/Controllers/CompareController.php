@@ -66,7 +66,7 @@ class CompareController extends Controller
                     if($newProduct['quantity_on_hand'] == $oldProduct['quantity_on_hand']){
                         $product['key'] = $newProduct['key'];
                         $product['quantity old'] = $oldProduct['quantity_on_hand'] ?? '0';
-                        $product['quantity'] = $newProduct['quantity_on_hand'];
+                        $product['quantity'] = $newProduct['quantity_on_hand'] ?? '0';
                         $product['status'] = 'without changes';
                         $items[] = $product;
 
@@ -74,7 +74,7 @@ class CompareController extends Controller
 
                         $product['key'] = $newProduct['key'];
                         $product['quantity old'] = $oldProduct['quantity_on_hand'] ?? '0';
-                        $product['quantity'] = $newProduct['quantity_on_hand'];
+                        $product['quantity'] = $newProduct['quantity_on_hand'] ?? '0';
                         $product['status'] = 'update increments';
                         $items[] = $product;
 
@@ -82,7 +82,7 @@ class CompareController extends Controller
 
                         $product['key'] = $newProduct['key'];
                         $product['quantity old'] = $oldProduct['quantity_on_hand'] ?? '0';
-                        $product['quantity'] = $newProduct['quantity_on_hand'];
+                        $product['quantity'] = $newProduct['quantity_on_hand'] ?? '0';
                         $product['status'] = 'update decrements';
                         $items[] = $product;
 
@@ -95,7 +95,7 @@ class CompareController extends Controller
             if(!$encontrado){
                 $product['key'] = $newProduct['key'];
                 $product['quantity old'] = '0';
-                $product['quantity'] = $newProduct['quantity_on_hand'];
+                $product['quantity'] = $newProduct['quantity_on_hand']  ?? '0';
                 $product['status'] = 'new stock';
                 $items[] = $product;
             }

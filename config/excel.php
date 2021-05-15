@@ -135,6 +135,7 @@ return [
             'escape_character' => '\\',
             'contiguous'       => true,
             'input_encoding'   => 'UTF-8',
+            'line_ending'      => PHP_EOL,
         ],
 
         /*
