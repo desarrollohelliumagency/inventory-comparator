@@ -30,7 +30,7 @@
                 </div>
             </div>
         @endif
-        <div class="grid grid-cols-3 gap-3">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
             <div class="p-4 border-2 border-gray-500">
                 <h2 class="text-2xl font-bold">1. Clear Databases Table</h2>
                 <p class="my-3 text-gray-500">Clic Submit button for clean databases</p>
