@@ -31,7 +31,7 @@
             </div>
         @endif
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div class="p-4 border-2 border-gray-500">
+            <div class="p-4 border-2 border-gray-500 mx-8 md:mx-0">
                 <h2 class="text-2xl font-bold">1. Clear Databases Table</h2>
                 <p class="my-3 text-gray-500">Clic Submit button for clean databases</p>
                 <form action="{{route('clean')}}" method="post">
@@ -42,10 +42,7 @@
                     </button>
                 </form>
             </div>
-            <div class="p-4 border-2 border-gray-500">
-                <svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
-                    <!-- ... -->
-                </svg>
+            <div class="p-4 border-2 border-gray-500 mx-8 md:mx-0">
                 <h2 class="text-2xl font-bold">2. Import Old Inventory</h2>
                 <form action="{{route('import.old')}}" enctype="multipart/form-data" method="post">
                     @csrf
@@ -60,7 +57,7 @@
                     <button type="submit" class="border-solid text-white bg-blue-600 hover:bg-blue-400 p-2 my-4 block">Submit Old Inventory</button>
                 </form>
             </div>
-            <div class="p-4 border-2 border-gray-500">
+            <div class="p-4 border-2 border-gray-500 mx-8 md:mx-0">
                 <h2 class="font-bold text-2xl">3. Import New Inventory</h2>
                 <form action="{{route('import.new')}}" enctype="multipart/form-data" method="post">
                     @csrf
