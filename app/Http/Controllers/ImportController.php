@@ -60,7 +60,7 @@ class ImportController extends Controller
             return redirect()->back()->with('success', 'New inventory was imported');
 
         }catch (\Exception $e) {
-            return redirect()->back()->with('errors', 'Error. Can`t load information in the database. '. $e->getMessage());
+            return redirect()->back()->with('errors', 'Exception. Can`t load information in the database. '. $e->getMessage());
         }catch (\Error $e){
             return redirect()->back()->with('errors', 'Error. Can`t load information in the database. '. $e->getMessage());
         }

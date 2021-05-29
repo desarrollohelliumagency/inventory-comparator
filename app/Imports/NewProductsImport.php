@@ -45,7 +45,13 @@ class NewProductsImport implements ToCollection, WithHeadingRow, SkipsOnError, S
                 ['key' => $row[$column_key]],
                 ['quantity_on_hand' => $row[$column_values]]
             );
+
         }
+    }
+
+    public function onError(Throwable $e)
+    {
+
     }
 
     public function getCsvSettings(): array
